@@ -87,6 +87,40 @@ const redirectToOriginal = async (req, res) => {
   }
 };
 
+const getAllShortURLs = async (req, res) => {
+  try {
+    const urls = await Url.find({}, {
+      _id: 0,
+      shortcode: 1,
+      originalUrl: 1,
+      expiry: 1,
+      createdAt: 1,
+      clicks: 1
+    });
 
-export { createShortUrl, getStats, redirectToOriginal };
+    const response = urls.map(url => ({
+      shortcode: url.shortcode,
+      originalUrl: url.originalUrl,
+      expiry: url.expiry,
+      createdAt: url.createdAt,
+      clickCount: url.clicks.length,
+      clicks: url.clicks.map(click => ({
+        timestamp: click.timestamp,
+        referrer: click.referrer,
+        location: click.location
+      }))
+    }));
+
+    await Log("backend", "info", "getAllShortURLs", "Fetched all URLs successfully");
+
+    res.status(200).json(response);
+  } catch (err) {
+    await Log("backend", "error", "getAllShortURLs", err.message);
+    res.status(500).json({ error: "Failed to fetch URLs" });
+  }
+};
+
+
+
+export { createShortUrl, getStats, redirectToOriginal,getAllShortURLs };
 
