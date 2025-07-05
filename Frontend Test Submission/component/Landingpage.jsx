@@ -15,7 +15,7 @@ export default function Landingpage() {
     const fetchUrls = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/links/getall");
+        const response = await axios.get("https://url-shortner-backend-chi.vercel.app/links/getall");
         setMyUrls(response.data);
         setError(null);
       } catch (error) {
@@ -46,7 +46,7 @@ export default function Landingpage() {
   const handleDeleteUrl = async (id) => {
     if (window.confirm('Are you sure you want to delete this URL?')) {
       try {
-        await axios.delete(`http://localhost:5000/links/${id}`);
+        await axios.delete(`https://url-shortner-backend-chi.vercel.app/links/${id}`);
         setMyUrls(myurls.filter(url => url.id !== id));
       } catch (error) {
         console.error("Failed to delete URL:", error);
