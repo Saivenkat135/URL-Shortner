@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../style/Services.css';
+import '../style/services.css';
 
 import Header from './Header';
 
