@@ -15,7 +15,7 @@ export default function Landingpage() {
     const fetchUrls = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://url-shortner-backend-personal/links/getall");
+        const response = await axios.get("https://url-shortner-backend-chi.vercel.app//links/getall");
         // const response = await axios.get("http://localhost:5000/links/getall");
         setMyUrls(response.data);
         setError(null);
