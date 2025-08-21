@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../style/services.css';
 
-import Header from './Header';
+import Header from './Header.jsx';
 
 const Services = () => {
   const [activeTab, setActiveTab] = useState('web');

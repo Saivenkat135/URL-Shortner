@@ -1,7 +1,7 @@
 import React from 'react';
-import '../style/About.css';
+import '../style/about.css';
 import profile_image from '../public/profile-image.png';
-import Header from './Header';
+import Header from './Header.jsx';
 
 const About = () => {
 
