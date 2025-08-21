@@ -26,7 +26,7 @@ const createShortUrl = async (req, res) => {
     await Log("backend", "info", "shorten", `Short URL created for ${url}`);
 
     res.status(201).json({
-      shortLink: `https://url-shortner-backend-chi.vercel.app/${shortCode}`,
+      shortLink: `https://url-shortner-api-server.onrender.com/${shortCode}`,
       expiry: expiry.toISOString()
     });
   } catch (err) {
