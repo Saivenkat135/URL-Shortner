@@ -1,11 +1,11 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css'
-import Header from '../component/Header';
-import Hero from '../component/Hero';
-import Landingpage from '../component/Landingpage';
-import Contact from '../component/contact';
-import About from '../component/About';
-import Services from '../component/services';
+// import Header from '../component/Header';
+import Hero from '../component/Hero.jsx';
+import Landingpage from '../component/Landingpage.jsx';
+import Contact from '../component/contact.jsx';
+import About from '../component/About.jsx';
+import Services from '../component/services.jsx';
 function App() {
 
   return (
@@ -23,4 +23,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
