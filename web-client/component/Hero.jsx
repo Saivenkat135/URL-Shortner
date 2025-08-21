@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../style/Hero.css';
-import Header from './Header';
-import Popup from './Popup';
+import Header from './Header.jsx';
+import Popup from './Popup.jsx';
 import axios from 'axios';
 
 export default function Hero() {
