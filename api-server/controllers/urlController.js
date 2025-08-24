@@ -26,7 +26,7 @@ const createShortUrl = async (req, res) => {
     await Log("backend", "info", "shorten", `Short URL created for ${url}`);
 
     res.status(201).json({
-      shortLink: `https://url-shortner-api-server.onrender.com/${shortCode}`,
+      shortLink: `https://shrinkerr.onrender.com/${shortCode}`,
       expiry: expiry.toISOString()
     });
   } catch (err) {
@@ -120,7 +120,31 @@ const getAllShortURLs = async (req, res) => {
   }
 };
 
+const deleteShortUrl = async (req, res) => {
+  const { shortcode } = req.params;
+
+  try {
+    // Check if shortcode exists in DB
+    const existing = await Url.findOne({ shortcode:shortcode });
+
+    if (!existing) {
+      await Log("backend", "error", "delete", `Shortcode ${shortcode} not found`);
+      return res.status(404).json({ error: "Shortcode not found" });
+    }
+
+    // Delete shortcode entry
+    await Url.deleteOne({ shortcode });
+    await Log("backend", "info", "delete", `Shortcode ${shortcode} deleted`);
+
+    return res.status(200).json({
+      message: `Shortcode ${shortcode} deleted successfully`
+    });
+  } catch (err) {
+    await Log("backend", "error", "delete", err.message);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 
-export { createShortUrl, getStats, redirectToOriginal,getAllShortURLs };
+export { createShortUrl, getStats, redirectToOriginal,getAllShortURLs ,deleteShortUrl };
 

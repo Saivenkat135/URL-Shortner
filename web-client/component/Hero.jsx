@@ -59,7 +59,7 @@ export default function Hero() {
     setLoading(true);
     
     try {
-      const response = await axios.post("https://url-shortner-api-server.onrender.com/shorturls", {
+      const response = await axios.post("https://shrinkerr.onrender.com/shorturls", {
       // const response = await axios.post("http://localhost:5000/shorturls", {
         url: data.url,
         validity: data.validity ? parseInt(data.validity) : undefined,
