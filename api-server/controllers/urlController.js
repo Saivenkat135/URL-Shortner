@@ -12,7 +12,7 @@ const createShortUrl = async (req, res) => {
   try {
     const existing = await Url.findOne({ shortcode: shortCode });
     if (existing) {
-      await Log("backend", "error", "shorten", "Shortcode collision");
+      // await Log("backend", "error", "shorten", "Shortcode collision");
       return res.status(409).json({ error: "Shortcode already exists" });
     }
 
@@ -23,14 +23,14 @@ const createShortUrl = async (req, res) => {
     });
 
     await newUrl.save();
-    await Log("backend", "info", "shorten", `Short URL created for ${url}`);
+    // await Log("backend", "info", "shorten", `Short URL created for ${url}`);
 
     res.status(201).json({
       shortLink: `https://shrinkerr.onrender.com/${shortCode}`,
       expiry: expiry.toISOString()
     });
   } catch (err) {
-    await Log("backend", "error", "shorten", err.message);
+    // await Log("backend", "error", "shorten", err.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -41,7 +41,7 @@ const getStats = async (req, res) => {
     const urlDoc = await Url.findOne({ shortcode });
 
     if (!urlDoc) {
-      await Log("backend", "error", "stats", "Shortcode not found");
+      // await Log("backend", "error", "stats", "Shortcode not found");
       return res.status(404).json({ error: "Shortcode not found" });
     }
 
@@ -53,7 +53,7 @@ const getStats = async (req, res) => {
       clicks: urlDoc.clicks
     });
   } catch (err) {
-    await Log("backend", "error", "stats", err.message);
+    // await Log("backend", "error", "stats", err.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -64,12 +64,12 @@ const redirectToOriginal = async (req, res) => {
     const urlDoc = await Url.findOne({ shortcode });
 
     if (!urlDoc) {
-      await Log("backend", "error", "redirect", "Shortcode not found");
+      // await Log("backend", "error", "redirect", "Shortcode not found");
       return res.status(404).json({ error: "Shortcode not found" });
     }
 
     if (urlDoc.expiry < new Date()) {
-      await Log("backend", "error", "redirect", "Shortcode expired");
+      // await Log("backend", "error", "redirect", "Shortcode expired");
       return res.status(410).json({ error: "Link expired" });
     }
 
@@ -79,10 +79,10 @@ const redirectToOriginal = async (req, res) => {
     urlDoc.clicks.push({ referrer, location });
     await urlDoc.save();
 
-    await Log("backend", "info", "redirect", `Redirected to ${urlDoc.originalUrl}`);
+    // await Log("backend", "info", "redirect", `Redirected to ${urlDoc.originalUrl}`);
     res.redirect(urlDoc.originalUrl);
   } catch (err) {
-    await Log("backend", "error", "redirect", err.message);
+    // await Log("backend", "error", "redirect", err.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -111,11 +111,11 @@ const getAllShortURLs = async (req, res) => {
       }))
     }));
 
-    await Log("backend", "info", "getAllShortURLs", "Fetched all URLs successfully");
+    // await Log("backend", "info", "getAllShortURLs", "Fetched all URLs successfully");
 
     res.status(200).json(response);
   } catch (err) {
-    await Log("backend", "error", "getAllShortURLs", err.message);
+    // await Log("backend", "error", "getAllShortURLs", err.message);
     res.status(500).json({ error: "Failed to fetch URLs" });
   }
 };
@@ -128,22 +128,23 @@ const deleteShortUrl = async (req, res) => {
     const existing = await Url.findOne({ shortcode:shortcode });
 
     if (!existing) {
-      await Log("backend", "error", "delete", `Shortcode ${shortcode} not found`);
+      // await Log("backend", "error", "delete", `Shortcode ${shortcode} not found`);
       return res.status(404).json({ error: "Shortcode not found" });
     }
 
     // Delete shortcode entry
     await Url.deleteOne({ shortcode });
-    await Log("backend", "info", "delete", `Shortcode ${shortcode} deleted`);
+    // await Log("backend", "info", "delete", `Shortcode ${shortcode} deleted`);
 
     return res.status(200).json({
       message: `Shortcode ${shortcode} deleted successfully`
     });
   } catch (err) {
-    await Log("backend", "error", "delete", err.message);
+    // await Log("backend", "error", "delete", err.message);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 
 
 export { createShortUrl, getStats, redirectToOriginal,getAllShortURLs ,deleteShortUrl };

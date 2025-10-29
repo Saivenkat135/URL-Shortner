@@ -54,30 +54,30 @@ app.get(["/", "/api"], (req, res) => {
 });
 
 //MongoDB Atlas Connection
-try {
-  const mongoUri = process.env.MONGO_URI;
+// try {
+//   const mongoUri = process.env.MONGO_URI;
 
-  if (!mongoUri) {
-    console.error("MongoDB URI not defined in .env file.");
-    process.exit(1);
-  }
+//   if (!mongoUri) {
+//     console.error("MongoDB URI not defined in .env file.");
+//     process.exit(1);
+//   }
 
-  mongoose
-    .connect(mongoUri)
-    .then(() => {
-      console.log("Connected to MongoDB Atlas CLOUD !!");
-    })
-    .catch((error) => {
-      console.error("Error connecting to MongoDB Atlas:", error);
-    });
-} catch (e) {
-  console.log("cloud connecting error");
-}
+//   mongoose
+//     .connect(mongoUri)
+//     .then(() => {
+//       console.log("Connected to MongoDB Atlas CLOUD !!");
+//     })
+//     .catch((error) => {
+//       console.error("Error connecting to MongoDB Atlas:", error);
+//     });
+// } catch (e) {
+//   console.log("cloud connecting error");
+// }
 
-// mongoose.connect('mongodb://localhost:27017/urlshortener')
-// .then(() => {
-//   console.log('MongoDB connected');
-// }).catch(err => console.error('DB Error:', err));
+mongoose.connect('mongodb://localhost:27017/urlshortener')
+.then(() => {
+  console.log('MongoDB connected');
+}).catch(err => console.error('DB Error:', err));
 
 app.listen(5000, () => console.log('Server running on http://localhost:5000'));
 

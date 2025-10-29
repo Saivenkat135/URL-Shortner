@@ -5,7 +5,6 @@ import Hero from '../component/Hero.jsx';
 import Landingpage from '../component/Landingpage.jsx';
 import Contact from '../component/contact.jsx';
 import About from '../component/About.jsx';
-import Services from '../component/services.jsx';
 function App() {
 
   return (
@@ -16,7 +15,6 @@ function App() {
       <Route path='/hero' element={<Hero/>}/>
       <Route path='/contact' element={<Contact/>}/>
       <Route path='/about' element={<About/>}/>
-      <Route path='/services' element={<Services/>}/>
     </Routes>
     </BrowserRouter>
     </>
